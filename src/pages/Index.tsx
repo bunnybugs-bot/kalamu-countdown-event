@@ -187,6 +187,40 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Programme Journées de l'Excellence */}
+      <section className="py-20 px-4">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl font-heading font-bold text-foreground text-center mb-3">
+            Programme des Journées de l'Excellence
+          </h2>
+          <p className="text-muted-foreground font-body text-sm text-center mb-12 max-w-2xl mx-auto">
+            3 jours d'activités culturelles, sociales et littéraires à Kaolack.
+          </p>
+          <div className="grid md:grid-cols-3 gap-6">
+            {programme.map((day) => (
+              <div key={day.day} className="bg-card rounded-xl border border-border p-6 hover:border-primary/40 transition-colors">
+                <div className="flex items-center gap-2 mb-5">
+                  <Calendar className="w-5 h-5 text-primary" />
+                  <h3 className="font-heading font-bold text-foreground text-sm">{day.day}</h3>
+                </div>
+                <div className="space-y-4">
+                  {day.events.map((ev) => (
+                    <div key={ev.time} className="border-l-2 border-primary/30 pl-4">
+                      <div className="flex items-center gap-1.5 text-xs text-primary font-medium font-body mb-1">
+                        <Clock className="w-3.5 h-3.5" />
+                        {ev.time}
+                      </div>
+                      <p className="text-sm font-body font-semibold text-foreground">{ev.title}</p>
+                      <p className="text-xs font-body text-muted-foreground mt-0.5">{ev.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Partners */}
       <section className="py-16 px-4">
         <div className="max-w-4xl mx-auto text-center mb-10">
