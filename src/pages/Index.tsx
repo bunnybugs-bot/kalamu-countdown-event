@@ -104,7 +104,7 @@ const Index = () => {
             <Countdown targetDate={DEADLINE} label="Clôture des inscriptions" />
           </div>
 
-          <div className="mt-10 animate-fade-in-up" style={{ animationDelay: "0.6s", opacity: 0 }}>
+          <div className="mt-10 animate-fade-in-up flex flex-col sm:flex-row items-center justify-center gap-4" style={{ animationDelay: "0.6s", opacity: 0 }}>
             <a
               href="https://kalamu-association.netlify.app/"
               target="_blank"
@@ -112,6 +112,12 @@ const Index = () => {
               className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3 rounded-full font-body font-semibold text-sm hover:brightness-110 transition-all hover:scale-105"
             >
               Visiter le site Kalamu <ExternalLink className="w-4 h-4" />
+            </a>
+            <a
+              href="mailto:associationkalamu@gmail.com"
+              className="inline-flex items-center gap-2 bg-primary-foreground/10 border border-primary-foreground/30 text-primary-foreground px-8 py-3 rounded-full font-body font-semibold text-sm hover:bg-primary-foreground/20 transition-all hover:scale-105"
+            >
+              Envoyer votre œuvre <Heart className="w-4 h-4" />
             </a>
           </div>
         </div>
@@ -252,14 +258,23 @@ const Index = () => {
         <p className="text-muted-foreground text-sm font-body">
           © 2026 Association Kalamu — « Grandir par la lecture, s'élever par l'écriture »
         </p>
-        <a
-          href="https://kalamu-association.netlify.app/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-primary text-sm font-body hover:underline mt-2 inline-block"
-        >
-          kalamu-association.netlify.app
-        </a>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-2">
+          <a
+            href="https://kalamu-association.netlify.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary text-sm font-body hover:underline"
+          >
+            kalamu-association.netlify.app
+          </a>
+          <span className="hidden sm:inline text-border">•</span>
+          <a
+            href="mailto:associationkalamu@gmail.com"
+            className="text-primary text-sm font-body hover:underline"
+          >
+            associationkalamu@gmail.com
+          </a>
+        </div>
       </footer>
     </div>
   );
