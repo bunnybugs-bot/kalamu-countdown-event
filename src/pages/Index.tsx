@@ -37,8 +37,34 @@ const timeline = [
   { date: "23 Mars", title: "Lancement officiel de la communication" },
   { date: "12 Avril", title: "Clôture des inscriptions (23h59)", active: true },
   { date: "13 Avril – 4 Mai", title: "Phase d'évaluation par le Grand Jury" },
-  { date: "5 Mai", title: "Annonce des 3 lauréats" },
+  { date: "5 Mai", title: "Délibération finale et annonce des 3 lauréats" },
+  { date: "7–19 Mai", title: "Préparation logistique de la Journée de l'Excellence" },
   { date: "21–23 Mai", title: "Journées de l'Excellence Kalamu" },
+  { date: "25 Mai", title: "Post-concours, évaluation et rapports" },
+];
+
+const programme = [
+  {
+    day: "Jeudi 21 Mai 2026",
+    events: [
+      { time: "09h00 – 12h00", title: "Journée de Don", desc: "Action sociale orientée vers une structure de soutien psychologique ou un centre de santé de Kaolack." },
+      { time: "15h30 – 18h00", title: "Café Livres", desc: "Rencontre conviviale (auteurs, lecteurs, membres Kalamu) sur l'impact thérapeutique de la lecture." },
+    ],
+  },
+  {
+    day: "Vendredi 22 Mai 2026",
+    events: [
+      { time: "09h00 – 13h00", title: "Exposition \"Du Livre\"", desc: "Installation de stands pour la Mini Foire du Livre avec les auteurs." },
+      { time: "15h00 – 18h00", title: "Panel de discussion", desc: "Débat sur l'importance du livre dans le développement personnel et la santé mentale des jeunes." },
+    ],
+  },
+  {
+    day: "Samedi 23 Mai 2026",
+    events: [
+      { time: "10h00 – 12h00", title: "Renforcement de Capacités", desc: "Formation offerte en Prise de Parole en Public." },
+      { time: "15h00 – 19h00", title: "Cérémonie Officielle de Remise des Prix", desc: "Lectures scéniques, témoignages et récompenses des lauréats." },
+    ],
+  },
 ];
 
 const Index = () => {
