@@ -105,14 +105,21 @@ const Index = () => {
           <p className="text-muted-foreground font-body mb-12 max-w-2xl mx-auto">
             Genre : <strong>Poésie uniquement</strong> — Un recueil d'un minimum de 20 poèmes
           </p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {themes.map(({ icon: Icon, label }) => (
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {themes.map(({ icon: Icon, label, highlight }) => (
               <div
                 key={label}
-                className="bg-card rounded-xl p-6 border border-border hover:border-primary/40 transition-all hover:-translate-y-1 group"
+                className={`bg-card rounded-xl p-6 border transition-all hover:-translate-y-1 group ${
+                  highlight ? "border-primary/60 ring-1 ring-primary/20" : "border-border hover:border-primary/40"
+                }`}
               >
                 <Icon className="w-8 h-8 text-primary mx-auto mb-3 group-hover:scale-110 transition-transform" />
                 <p className="text-sm font-body font-medium text-foreground">{label}</p>
+                {highlight && (
+                  <span className="inline-block mt-2 text-xs font-body text-primary bg-primary/10 px-2 py-0.5 rounded-full">
+                    Thème central
+                  </span>
+                )}
               </div>
             ))}
           </div>
