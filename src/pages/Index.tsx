@@ -7,10 +7,29 @@ const DEADLINE = new Date("2026-04-12T23:59:00");
 const CEREMONY = new Date("2026-05-23T15:00:00");
 
 const themes = [
-  { icon: Heart, label: "La Santé Mentale" },
-  { icon: Feather, label: "La Confiance en Soi" },
-  { icon: BookOpen, label: "Le Patrimoine" },
+  { icon: Brain, label: "La Santé Mentale", highlight: true },
+  { icon: Users, label: "La Place de la Femme" },
   { icon: Award, label: "Les Droits des Enfants" },
+  { icon: Feather, label: "La Confiance en Soi" },
+  { icon: Globe, label: "Le Voyage" },
+  { icon: BookOpen, label: "Le Patrimoine" },
+];
+
+const partners = [
+  "Direction du Livre et de la Lecture",
+  "Centre Culturel Régional de Kaolack",
+  "Inspection Académie de Kaolack",
+  "Conseil Départemental de Kaolack",
+  "Mairie de Kaolack",
+  "Alliance Française de Kaolack",
+  "Wallonie Bruxelles International",
+  "ENABEL",
+  "Les Éditions Ceddo",
+  "Sénégal Niaay Magazine",
+  "ClapFilmGroup",
+  "Xela Xel",
+  "RTS",
+  "Kaolack Infos",
 ];
 
 const timeline = [
