@@ -83,6 +83,7 @@ const Index = () => {
 
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
           <div className="animate-fade-in-up">
+            <img src={logo} alt="Logo Kalamu" className="w-32 sm:w-40 mx-auto mb-6" />
             <p className="text-primary text-sm font-semibold uppercase tracking-[0.3em] mb-4 font-body">
               Association Kalamu présente
             </p>
