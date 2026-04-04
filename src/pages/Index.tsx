@@ -1,7 +1,8 @@
 import heroBg from "@/assets/hero-bg.jpg";
+import logo from "@/assets/logo.png";
 import Countdown from "@/components/Countdown";
 import TimelineEvent from "@/components/TimelineEvent";
-import { BookOpen, Feather, Heart, Award, ExternalLink, Users, Globe, Brain } from "lucide-react";
+import { BookOpen, Feather, Heart, Award, ExternalLink, Users, Globe, Brain, Clock, Calendar } from "lucide-react";
 
 const DEADLINE = new Date("2026-04-12T23:59:00");
 const CEREMONY = new Date("2026-05-23T15:00:00");
@@ -36,8 +37,34 @@ const timeline = [
   { date: "23 Mars", title: "Lancement officiel de la communication" },
   { date: "12 Avril", title: "Clôture des inscriptions (23h59)", active: true },
   { date: "13 Avril – 4 Mai", title: "Phase d'évaluation par le Grand Jury" },
-  { date: "5 Mai", title: "Annonce des 3 lauréats" },
+  { date: "5 Mai", title: "Délibération finale et annonce des 3 lauréats" },
+  { date: "7–19 Mai", title: "Préparation logistique de la Journée de l'Excellence" },
   { date: "21–23 Mai", title: "Journées de l'Excellence Kalamu" },
+  { date: "25 Mai", title: "Post-concours, évaluation et rapports" },
+];
+
+const programme = [
+  {
+    day: "Jeudi 21 Mai 2026",
+    events: [
+      { time: "09h00 – 12h00", title: "Journée de Don", desc: "Action sociale orientée vers une structure de soutien psychologique ou un centre de santé de Kaolack." },
+      { time: "15h30 – 18h00", title: "Café Livres", desc: "Rencontre conviviale (auteurs, lecteurs, membres Kalamu) sur l'impact thérapeutique de la lecture." },
+    ],
+  },
+  {
+    day: "Vendredi 22 Mai 2026",
+    events: [
+      { time: "09h00 – 13h00", title: "Exposition \"Du Livre\"", desc: "Installation de stands pour la Mini Foire du Livre avec les auteurs." },
+      { time: "15h00 – 18h00", title: "Panel de discussion", desc: "Débat sur l'importance du livre dans le développement personnel et la santé mentale des jeunes." },
+    ],
+  },
+  {
+    day: "Samedi 23 Mai 2026",
+    events: [
+      { time: "10h00 – 12h00", title: "Renforcement de Capacités", desc: "Formation offerte en Prise de Parole en Public." },
+      { time: "15h00 – 19h00", title: "Cérémonie Officielle de Remise des Prix", desc: "Lectures scéniques, témoignages et récompenses des lauréats." },
+    ],
+  },
 ];
 
 const Index = () => {
@@ -56,6 +83,7 @@ const Index = () => {
 
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
           <div className="animate-fade-in-up">
+            <img src={logo} alt="Logo Kalamu" className="w-32 sm:w-40 mx-auto mb-6" />
             <p className="text-primary text-sm font-semibold uppercase tracking-[0.3em] mb-4 font-body">
               Association Kalamu présente
             </p>
@@ -155,6 +183,40 @@ const Index = () => {
                 Le premier prix inclut l'<strong>édition professionnelle</strong> de votre premier recueil de poèmes. Une opportunité unique de devenir un auteur publié.
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Programme Journées de l'Excellence */}
+      <section className="py-20 px-4">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl font-heading font-bold text-foreground text-center mb-3">
+            Programme des Journées de l'Excellence
+          </h2>
+          <p className="text-muted-foreground font-body text-sm text-center mb-12 max-w-2xl mx-auto">
+            3 jours d'activités culturelles, sociales et littéraires à Kaolack.
+          </p>
+          <div className="grid md:grid-cols-3 gap-6">
+            {programme.map((day) => (
+              <div key={day.day} className="bg-card rounded-xl border border-border p-6 hover:border-primary/40 transition-colors">
+                <div className="flex items-center gap-2 mb-5">
+                  <Calendar className="w-5 h-5 text-primary" />
+                  <h3 className="font-heading font-bold text-foreground text-sm">{day.day}</h3>
+                </div>
+                <div className="space-y-4">
+                  {day.events.map((ev) => (
+                    <div key={ev.time} className="border-l-2 border-primary/30 pl-4">
+                      <div className="flex items-center gap-1.5 text-xs text-primary font-medium font-body mb-1">
+                        <Clock className="w-3.5 h-3.5" />
+                        {ev.time}
+                      </div>
+                      <p className="text-sm font-body font-semibold text-foreground">{ev.title}</p>
+                      <p className="text-xs font-body text-muted-foreground mt-0.5">{ev.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
