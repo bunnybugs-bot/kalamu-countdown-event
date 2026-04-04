@@ -1,16 +1,35 @@
 import heroBg from "@/assets/hero-bg.jpg";
 import Countdown from "@/components/Countdown";
 import TimelineEvent from "@/components/TimelineEvent";
-import { BookOpen, Feather, Heart, Award, ExternalLink } from "lucide-react";
+import { BookOpen, Feather, Heart, Award, ExternalLink, Users, Globe, Brain } from "lucide-react";
 
 const DEADLINE = new Date("2026-04-12T23:59:00");
 const CEREMONY = new Date("2026-05-23T15:00:00");
 
 const themes = [
-  { icon: Heart, label: "La Santé Mentale" },
-  { icon: Feather, label: "La Confiance en Soi" },
-  { icon: BookOpen, label: "Le Patrimoine" },
+  { icon: Brain, label: "La Santé Mentale", highlight: true },
+  { icon: Users, label: "La Place de la Femme" },
   { icon: Award, label: "Les Droits des Enfants" },
+  { icon: Feather, label: "La Confiance en Soi" },
+  { icon: Globe, label: "Le Voyage" },
+  { icon: BookOpen, label: "Le Patrimoine" },
+];
+
+const partners = [
+  "Direction du Livre et de la Lecture",
+  "Centre Culturel Régional de Kaolack",
+  "Inspection Académie de Kaolack",
+  "Conseil Départemental de Kaolack",
+  "Mairie de Kaolack",
+  "Alliance Française de Kaolack",
+  "Wallonie Bruxelles International",
+  "ENABEL",
+  "Les Éditions Ceddo",
+  "Sénégal Niaay Magazine",
+  "ClapFilmGroup",
+  "Xela Xel",
+  "RTS",
+  "Kaolack Infos",
 ];
 
 const timeline = [
@@ -86,14 +105,21 @@ const Index = () => {
           <p className="text-muted-foreground font-body mb-12 max-w-2xl mx-auto">
             Genre : <strong>Poésie uniquement</strong> — Un recueil d'un minimum de 20 poèmes
           </p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {themes.map(({ icon: Icon, label }) => (
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {themes.map(({ icon: Icon, label, highlight }) => (
               <div
                 key={label}
-                className="bg-card rounded-xl p-6 border border-border hover:border-primary/40 transition-all hover:-translate-y-1 group"
+                className={`bg-card rounded-xl p-6 border transition-all hover:-translate-y-1 group ${
+                  highlight ? "border-primary/60 ring-1 ring-primary/20" : "border-border hover:border-primary/40"
+                }`}
               >
                 <Icon className="w-8 h-8 text-primary mx-auto mb-3 group-hover:scale-110 transition-transform" />
                 <p className="text-sm font-body font-medium text-foreground">{label}</p>
+                {highlight && (
+                  <span className="inline-block mt-2 text-xs font-body text-primary bg-primary/10 px-2 py-0.5 rounded-full">
+                    Thème central
+                  </span>
+                )}
               </div>
             ))}
           </div>
@@ -129,6 +155,32 @@ const Index = () => {
                 Le premier prix inclut l'<strong>édition professionnelle</strong> de votre premier recueil de poèmes. Une opportunité unique de devenir un auteur publié.
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Partners */}
+      <section className="py-16 px-4">
+        <div className="max-w-4xl mx-auto text-center mb-10">
+          <h2 className="text-3xl font-heading font-bold text-foreground mb-3">
+            Nos Partenaires
+          </h2>
+          <p className="text-muted-foreground font-body text-sm">
+            Merci à tous ceux qui rendent cet événement possible.
+          </p>
+        </div>
+        <div className="relative overflow-hidden">
+          <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-background to-transparent z-10" />
+          <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-background to-transparent z-10" />
+          <div className="flex animate-marquee whitespace-nowrap">
+            {[...partners, ...partners].map((name, i) => (
+              <div
+                key={i}
+                className="inline-flex items-center justify-center mx-4 px-6 py-3 bg-card border border-border rounded-lg min-w-max"
+              >
+                <span className="text-sm font-body font-medium text-foreground">{name}</span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
