@@ -159,6 +159,32 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Partners */}
+      <section className="py-16 px-4">
+        <div className="max-w-4xl mx-auto text-center mb-10">
+          <h2 className="text-3xl font-heading font-bold text-foreground mb-3">
+            Nos Partenaires
+          </h2>
+          <p className="text-muted-foreground font-body text-sm">
+            Merci à tous ceux qui rendent cet événement possible.
+          </p>
+        </div>
+        <div className="relative overflow-hidden">
+          <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-background to-transparent z-10" />
+          <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-background to-transparent z-10" />
+          <div className="flex animate-marquee whitespace-nowrap">
+            {[...partners, ...partners].map((name, i) => (
+              <div
+                key={i}
+                className="inline-flex items-center justify-center mx-4 px-6 py-3 bg-card border border-border rounded-lg min-w-max"
+              >
+                <span className="text-sm font-body font-medium text-foreground">{name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="py-10 px-4 text-center border-t border-border">
         <p className="text-muted-foreground text-sm font-body">
