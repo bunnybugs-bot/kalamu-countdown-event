@@ -1,7 +1,7 @@
 import heroBg from "@/assets/hero-bg.jpg";
 import Countdown from "@/components/Countdown";
 import TimelineEvent from "@/components/TimelineEvent";
-import { BookOpen, Feather, Heart, Award, ExternalLink } from "lucide-react";
+import { BookOpen, Feather, Heart, Award, ExternalLink, Users, Globe, Brain } from "lucide-react";
 
 const DEADLINE = new Date("2026-04-12T23:59:00");
 const CEREMONY = new Date("2026-05-23T15:00:00");
