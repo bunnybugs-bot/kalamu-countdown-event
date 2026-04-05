@@ -1,19 +1,21 @@
 import heroBg from "@/assets/hero-bg.jpg";
 import logo from "@/assets/logo.png";
 import Countdown from "@/components/Countdown";
+import DeadlineProgress from "@/components/DeadlineProgress";
+import ShareButton from "@/components/ShareButton";
 import TimelineEvent from "@/components/TimelineEvent";
-import { BookOpen, Feather, Heart, Award, ExternalLink, Users, Globe, Brain, Clock, Calendar } from "lucide-react";
+import { BookOpen, Feather, Award, ExternalLink, Users, Globe, Brain, Clock, Calendar } from "lucide-react";
 
 const DEADLINE = new Date("2026-04-12T23:59:00");
 const CEREMONY = new Date("2026-05-23T15:00:00");
 
 const themes = [
-  { icon: Brain, label: "La Santé Mentale", highlight: true },
-  { icon: Users, label: "La Place de la Femme" },
-  { icon: Award, label: "Les Droits des Enfants" },
-  { icon: Feather, label: "La Confiance en Soi" },
-  { icon: Globe, label: "Le Voyage" },
-  { icon: BookOpen, label: "Le Patrimoine" },
+  { icon: Brain, label: "La Santé Mentale", highlight: true, desc: "Explorez les émotions, la résilience et le bien-être psychologique des jeunes à travers vos vers." },
+  { icon: Users, label: "La Place de la Femme", desc: "Célébrez les luttes, les victoires et l'empowerment féminin dans la société contemporaine." },
+  { icon: Award, label: "Les Droits des Enfants", desc: "Donnez voix aux plus jeunes : éducation, protection, et rêves d'avenir." },
+  { icon: Feather, label: "La Confiance en Soi", desc: "Racontez le chemin vers l'estime de soi, le doute surmonté, la force intérieure." },
+  { icon: Globe, label: "Le Voyage", desc: "Voyages réels ou imaginaires — l'ailleurs comme source de transformation personnelle." },
+  { icon: BookOpen, label: "Le Patrimoine", desc: "Mettez en lumière les richesses culturelles, les traditions et la mémoire collective." },
 ];
 
 const partners = [
@@ -72,6 +74,9 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       {/* Hero */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Animated gradient top border */}
+        <div className="absolute top-0 left-0 right-0 h-1 z-20 gradient-border" />
+
         <img
           src={heroBg}
           alt="Savane africaine au coucher du soleil"
@@ -90,7 +95,7 @@ const Index = () => {
             <h1 className="text-4xl sm:text-6xl lg:text-7xl font-heading font-bold text-primary-foreground mb-4 leading-tight">
               Concours d'Écriture
               <br />
-              <span className="text-primary">Kalamu</span>
+              <span className="text-primary shimmer-text">Kalamu</span>
             </h1>
             <p className="text-primary-foreground/80 text-lg sm:text-xl font-heading italic mb-2">
               « Grandir par la lecture, s'élever par l'écriture »
@@ -102,6 +107,7 @@ const Index = () => {
 
           <div className="animate-fade-in-up" style={{ animationDelay: "0.3s", opacity: 0 }}>
             <Countdown targetDate={DEADLINE} label="Clôture des inscriptions" />
+            <DeadlineProgress />
           </div>
 
           <div className="mt-10 animate-fade-in-up" style={{ animationDelay: "0.6s", opacity: 0 }}>
@@ -120,6 +126,9 @@ const Index = () => {
               >
                 Visiter le site Kalamu <ExternalLink className="w-4 h-4" />
               </a>
+            </div>
+            <div className="mt-4">
+              <ShareButton />
             </div>
           </div>
         </div>
@@ -142,10 +151,10 @@ const Index = () => {
             Genre : <strong>Poésie uniquement</strong> — Un recueil d'un minimum de 20 poèmes
           </p>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {themes.map(({ icon: Icon, label, highlight }) => (
+            {themes.map(({ icon: Icon, label, highlight, desc }) => (
               <div
                 key={label}
-                className={`bg-card rounded-xl p-6 border transition-all hover:-translate-y-1 group ${
+                className={`bg-card rounded-xl p-6 border transition-all hover:-translate-y-1 group relative overflow-hidden ${
                   highlight ? "border-primary/60 ring-1 ring-primary/20" : "border-border hover:border-primary/40"
                 }`}
               >
@@ -156,6 +165,10 @@ const Index = () => {
                     Thème central
                   </span>
                 )}
+                {/* Hover card with description */}
+                <div className="absolute inset-0 bg-card/95 backdrop-blur-sm flex items-center justify-center p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <p className="text-xs font-body text-muted-foreground leading-relaxed">{desc}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -239,10 +252,10 @@ const Index = () => {
             Merci à tous ceux qui rendent cet événement possible.
           </p>
         </div>
-        <div className="relative overflow-hidden">
+        <div className="relative overflow-hidden group/marquee">
           <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-background to-transparent z-10" />
           <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-background to-transparent z-10" />
-          <div className="flex animate-marquee whitespace-nowrap">
+          <div className="flex animate-marquee whitespace-nowrap group-hover/marquee:[animation-play-state:paused]">
             {[...partners, ...partners].map((name, i) => (
               <div
                 key={i}
