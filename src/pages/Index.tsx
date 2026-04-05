@@ -144,6 +144,12 @@ function getDeadlineProgress() {
   return Math.min(100, Math.max(0, Math.round((elapsed / total) * 100)));
 }
 
+function getWhatsAppShareUrl() {
+  const pageUrl = typeof window !== "undefined" ? window.location.href : "";
+  const text = encodeURIComponent(`Découvrez le Concours d'Écriture Kalamu 2026 ! ${pageUrl}`);
+  return `https://wa.me/?text=${text}`;
+}
+
 // ── component ──────────────────────────────────────────────────────────────
 const Index = () => {
   const [parallaxY, setParallaxY] = useState(0);
@@ -570,7 +576,7 @@ const Index = () => {
             <Facebook className="w-4 h-4" />
           </a>
           <a
-            href={`https://wa.me/?text=${encodeURIComponent("Découvrez le Concours d'Écriture Kalamu 2026 ! " + (typeof window !== "undefined" ? window.location.href : ""))}`}
+            href={getWhatsAppShareUrl()}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="WhatsApp"
