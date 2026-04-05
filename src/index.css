@@ -108,3 +108,52 @@
 .animate-marquee {
   animation: marquee 30s linear infinite;
 }
+
+/* shimmer for gold highlights */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+.animate-shimmer {
+  background: linear-gradient(90deg, hsl(28 90% 55%), hsl(40 95% 65%), hsl(28 90% 55%));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+
+/* animated gradient top border */
+@keyframes gradient-border {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.hero-gradient-border::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #f97316, #fbbf24, #f97316, #ea580c);
+  background-size: 300% 300%;
+  animation: gradient-border 4s ease infinite;
+  z-index: 20;
+}
+
+/* floating ink drop particles */
+@keyframes ink-rise {
+  0%   { transform: translateY(0) scale(1);   opacity: 0.6; }
+  100% { transform: translateY(-120px) scale(0.3); opacity: 0; }
+}
+.ink-particle {
+  position: absolute;
+  border-radius: 50%;
+  background: hsl(28 90% 55% / 0.25);
+  animation: ink-rise 6s ease-in infinite;
+  pointer-events: none;
+}
+
+/* marquee pause on hover (via group) */
+.group:hover .animate-marquee {
+  animation-play-state: paused;
+}
