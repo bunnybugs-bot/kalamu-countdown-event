@@ -2,8 +2,10 @@ import heroBg from "@/assets/hero-bg.jpg";
 import logo from "@/assets/logo.png";
 import Countdown from "@/components/Countdown";
 import DeadlineProgress from "@/components/DeadlineProgress";
+import InkDrops from "@/components/InkDrops";
 import ShareButton from "@/components/ShareButton";
 import TimelineEvent from "@/components/TimelineEvent";
+import { useScrollReveal, useParallax } from "@/hooks/use-scroll-effects";
 import { BookOpen, Feather, Award, ExternalLink, Users, Globe, Brain, Clock, Calendar } from "lucide-react";
 
 const DEADLINE = new Date("2026-04-12T23:59:00");
@@ -69,7 +71,22 @@ const programme = [
   },
 ];
 
+const RevealSection = ({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) => {
+  const { ref, visible } = useScrollReveal();
+  return (
+    <div
+      ref={ref}
+      className={`transition-all duration-700 ease-out ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"} ${className}`}
+      style={{ transitionDelay: `${delay}ms` }}
+    >
+      {children}
+    </div>
+  );
+};
+
 const Index = () => {
+  const parallaxOffset = useParallax();
+
   return (
     <div className="min-h-screen bg-background">
       {/* Hero */}
@@ -80,11 +97,15 @@ const Index = () => {
         <img
           src={heroBg}
           alt="Savane africaine au coucher du soleil"
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover will-change-transform"
+          style={{ transform: `translateY(${parallaxOffset}px) scale(1.1)` }}
           width={1920}
           height={1080}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-foreground/70 via-foreground/50 to-foreground/80" />
+
+        {/* Floating ink drops */}
+        <InkDrops />
 
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
           <div className="animate-fade-in-up">
@@ -144,32 +165,34 @@ const Index = () => {
       {/* Themes */}
       <section className="py-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl font-heading font-bold text-foreground mb-3">
-            Thématiques 2026
-          </h2>
-          <p className="text-muted-foreground font-body mb-12 max-w-2xl mx-auto">
-            Genre : <strong>Poésie uniquement</strong> — Un recueil d'un minimum de 20 poèmes
-          </p>
+          <RevealSection>
+            <h2 className="text-3xl sm:text-4xl font-heading font-bold text-foreground mb-3">
+              Thématiques 2026
+            </h2>
+            <p className="text-muted-foreground font-body mb-12 max-w-2xl mx-auto">
+              Genre : <strong>Poésie uniquement</strong> — Un recueil d'un minimum de 20 poèmes
+            </p>
+          </RevealSection>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {themes.map(({ icon: Icon, label, highlight, desc }) => (
-              <div
-                key={label}
-                className={`bg-card rounded-xl p-6 border transition-all hover:-translate-y-1 group relative overflow-hidden ${
-                  highlight ? "border-primary/60 ring-1 ring-primary/20" : "border-border hover:border-primary/40"
-                }`}
-              >
-                <Icon className="w-8 h-8 text-primary mx-auto mb-3 group-hover:scale-110 transition-transform" />
-                <p className="text-sm font-body font-medium text-foreground">{label}</p>
-                {highlight && (
-                  <span className="inline-block mt-2 text-xs font-body text-primary bg-primary/10 px-2 py-0.5 rounded-full">
-                    Thème central
-                  </span>
-                )}
-                {/* Hover card with description */}
-                <div className="absolute inset-0 bg-card/95 backdrop-blur-sm flex items-center justify-center p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <p className="text-xs font-body text-muted-foreground leading-relaxed">{desc}</p>
+            {themes.map(({ icon: Icon, label, highlight, desc }, i) => (
+              <RevealSection key={label} delay={i * 100}>
+                <div
+                  className={`bg-card rounded-xl p-6 border transition-all hover:-translate-y-1 group relative overflow-hidden h-full ${
+                    highlight ? "border-primary/60 ring-1 ring-primary/20" : "border-border hover:border-primary/40"
+                  }`}
+                >
+                  <Icon className="w-8 h-8 text-primary mx-auto mb-3 group-hover:scale-110 transition-transform" />
+                  <p className="text-sm font-body font-medium text-foreground">{label}</p>
+                  {highlight && (
+                    <span className="inline-block mt-2 text-xs font-body text-primary bg-primary/10 px-2 py-0.5 rounded-full">
+                      Thème central
+                    </span>
+                  )}
+                  <div className="absolute inset-0 bg-card/95 backdrop-blur-sm flex items-center justify-center p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <p className="text-xs font-body text-muted-foreground leading-relaxed">{desc}</p>
+                  </div>
                 </div>
-              </div>
+              </RevealSection>
             ))}
           </div>
         </div>
@@ -179,31 +202,39 @@ const Index = () => {
       <section className="py-20 px-4 bg-card">
         <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-16">
           <div>
-            <h2 className="text-3xl font-heading font-bold text-foreground mb-8">
-              Calendrier
-            </h2>
+            <RevealSection>
+              <h2 className="text-3xl font-heading font-bold text-foreground mb-8">
+                Calendrier
+              </h2>
+            </RevealSection>
             <div>
-              {timeline.map((e) => (
-                <TimelineEvent key={e.date} {...e} />
+              {timeline.map((e, i) => (
+                <RevealSection key={e.date} delay={i * 80}>
+                  <TimelineEvent {...e} />
+                </RevealSection>
               ))}
             </div>
           </div>
 
           <div>
-            <h2 className="text-3xl font-heading font-bold text-foreground mb-4">
-              Cérémonie des Prix
-            </h2>
-            <p className="text-muted-foreground font-body text-sm mb-8">
-              Samedi 23 Mai 2026 — Lectures scéniques, témoignages et récompenses des lauréats.
-            </p>
-            <Countdown targetDate={CEREMONY} label="Journées de l'Excellence" />
-
-            <div className="mt-10 bg-background rounded-xl p-6 border border-border">
-              <h3 className="font-heading font-bold text-foreground mb-3">🏆 Prix du Lauréat</h3>
-              <p className="text-sm text-muted-foreground font-body">
-                Le premier prix inclut l'<strong>édition professionnelle</strong> de votre premier recueil de poèmes. Une opportunité unique de devenir un auteur publié.
+            <RevealSection>
+              <h2 className="text-3xl font-heading font-bold text-foreground mb-4">
+                Cérémonie des Prix
+              </h2>
+              <p className="text-muted-foreground font-body text-sm mb-8">
+                Samedi 23 Mai 2026 — Lectures scéniques, témoignages et récompenses des lauréats.
               </p>
-            </div>
+              <Countdown targetDate={CEREMONY} label="Journées de l'Excellence" />
+            </RevealSection>
+
+            <RevealSection delay={200}>
+              <div className="mt-10 bg-background rounded-xl p-6 border border-border">
+                <h3 className="font-heading font-bold text-foreground mb-3">🏆 Prix du Lauréat</h3>
+                <p className="text-sm text-muted-foreground font-body">
+                  Le premier prix inclut l'<strong>édition professionnelle</strong> de votre premier recueil de poèmes. Une opportunité unique de devenir un auteur publié.
+                </p>
+              </div>
+            </RevealSection>
           </div>
         </div>
       </section>
@@ -211,32 +242,36 @@ const Index = () => {
       {/* Programme Journées de l'Excellence */}
       <section className="py-20 px-4">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl sm:text-4xl font-heading font-bold text-foreground text-center mb-3">
-            Programme des Journées de l'Excellence
-          </h2>
-          <p className="text-muted-foreground font-body text-sm text-center mb-12 max-w-2xl mx-auto">
-            3 jours d'activités culturelles, sociales et littéraires à Kaolack.
-          </p>
+          <RevealSection>
+            <h2 className="text-3xl sm:text-4xl font-heading font-bold text-foreground text-center mb-3">
+              Programme des Journées de l'Excellence
+            </h2>
+            <p className="text-muted-foreground font-body text-sm text-center mb-12 max-w-2xl mx-auto">
+              3 jours d'activités culturelles, sociales et littéraires à Kaolack.
+            </p>
+          </RevealSection>
           <div className="grid md:grid-cols-3 gap-6">
-            {programme.map((day) => (
-              <div key={day.day} className="bg-card rounded-xl border border-border p-6 hover:border-primary/40 transition-colors">
-                <div className="flex items-center gap-2 mb-5">
-                  <Calendar className="w-5 h-5 text-primary" />
-                  <h3 className="font-heading font-bold text-foreground text-sm">{day.day}</h3>
-                </div>
-                <div className="space-y-4">
-                  {day.events.map((ev) => (
-                    <div key={ev.time} className="border-l-2 border-primary/30 pl-4">
-                      <div className="flex items-center gap-1.5 text-xs text-primary font-medium font-body mb-1">
-                        <Clock className="w-3.5 h-3.5" />
-                        {ev.time}
+            {programme.map((day, i) => (
+              <RevealSection key={day.day} delay={i * 150}>
+                <div className="bg-card rounded-xl border border-border p-6 hover:border-primary/40 transition-colors h-full">
+                  <div className="flex items-center gap-2 mb-5">
+                    <Calendar className="w-5 h-5 text-primary" />
+                    <h3 className="font-heading font-bold text-foreground text-sm">{day.day}</h3>
+                  </div>
+                  <div className="space-y-4">
+                    {day.events.map((ev) => (
+                      <div key={ev.time} className="border-l-2 border-primary/30 pl-4">
+                        <div className="flex items-center gap-1.5 text-xs text-primary font-medium font-body mb-1">
+                          <Clock className="w-3.5 h-3.5" />
+                          {ev.time}
+                        </div>
+                        <p className="text-sm font-body font-semibold text-foreground">{ev.title}</p>
+                        <p className="text-xs font-body text-muted-foreground mt-0.5">{ev.desc}</p>
                       </div>
-                      <p className="text-sm font-body font-semibold text-foreground">{ev.title}</p>
-                      <p className="text-xs font-body text-muted-foreground mt-0.5">{ev.desc}</p>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
+              </RevealSection>
             ))}
           </div>
         </div>
@@ -244,14 +279,16 @@ const Index = () => {
 
       {/* Partners */}
       <section className="py-16 px-4">
-        <div className="max-w-4xl mx-auto text-center mb-10">
-          <h2 className="text-3xl font-heading font-bold text-foreground mb-3">
-            Nos Partenaires
-          </h2>
-          <p className="text-muted-foreground font-body text-sm">
-            Merci à tous ceux qui rendent cet événement possible.
-          </p>
-        </div>
+        <RevealSection>
+          <div className="max-w-4xl mx-auto text-center mb-10">
+            <h2 className="text-3xl font-heading font-bold text-foreground mb-3">
+              Nos Partenaires
+            </h2>
+            <p className="text-muted-foreground font-body text-sm">
+              Merci à tous ceux qui rendent cet événement possible.
+            </p>
+          </div>
+        </RevealSection>
         <div className="relative overflow-hidden group/marquee">
           <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-background to-transparent z-10" />
           <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-background to-transparent z-10" />
