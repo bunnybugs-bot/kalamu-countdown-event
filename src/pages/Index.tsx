@@ -5,6 +5,7 @@ import DeadlineProgress from "@/components/DeadlineProgress";
 import InkDrops from "@/components/InkDrops";
 import ShareButton from "@/components/ShareButton";
 import TimelineEvent from "@/components/TimelineEvent";
+import VotingSection from "@/components/VotingSection";
 import { useScrollReveal, useParallax } from "@/hooks/use-scroll-effects";
 import { BookOpen, Feather, Award, ExternalLink, Users, Globe, Brain, Clock, Calendar } from "lucide-react";
 
@@ -238,6 +239,9 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Vote public */}
+      <VotingSection />
 
       {/* Programme Journées de l'Excellence */}
       <section className="py-20 px-4">
